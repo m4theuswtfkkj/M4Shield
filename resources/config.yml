@@ -1,0 +1,139 @@
+# ███╗░░░███╗░░██╗██╗████████╗██╗░░██╗███████╗██╗░░░██╗░██████╗
+# ████╗░████║░██╔╝██║╚══██╔══╝██║░░██║██╔════╝██║░░░██║██╔════╝
+# ██╔████╔██║██╔╝░██║░░░██║░░░███████║█████╗░░██║░░░██║╚█████╗░
+# ██║╚██╔╝██║███████║░░░██║░░░██╔══██║██╔══╝░░██║░░░██║░╚═══██╗
+# ██║░╚═╝░██║╚════██║░░░██║░░░██║░░██║███████╗╚██████╔╝██████╔╝
+# ╚═╝░░░░░╚═╝░░░░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝░╚═════╝░╚═════╝░
+# Arquivo de configuração do M4Shield
+# Configurações do plugin (em hipótese alguma mexa na config version)
+plugin:
+  version: 2
+
+# Configurações do anti-bot
+antibot:
+  enabled: true # Define se o antibot está ativado ou desativado. true = ativado, false = desativado (Padrão: true)
+  maxCount: 4 # Define a quantidade máxima de bots para acionar a proteção. Se o número de bots for igual ou maior a esse valor, o ip dos bots será bloqueado (Padrão: 4) | Aviso: o ip dos bots é bloqueado até o servidor desligar ou reiniciar
+
+# Configurações do anti-grief
+antigrief:
+  enabled: true # Define se o anti-grief está ativado ou desativado. true = ativado, false = desativado (Padrão: true)
+  message: "§8[§bM4Shield§8] §cEste item está bloqueado" # Essa é a mensagem exibida quando um jogador tenta usar ou colocar um item bloqueado (Padrão: §8[§bM4Shield§8] §cEste item está bloqueado.)
+  blockedItems: [259, 325, 385, 8, 9, 10, 11, 46, 51, 383, 328, 333, 384, 52, 321]
+  # A lista de itens bloqueados por padrão contém os ids dos itens separados por vírgulas.
+  # Adicione ou remova ids para bloquear ou permitir itens específicos.
+  # Os ids padrão de itens são do meu servidor iAkunaMC, você pode modificar os itens bloqueados quando quiser
+  itemInHand: false # Essa opção define se um jogador pode pegar um item bloqueado na mão. true = permitido, false = não permitido(Padrão: false)
+
+# Bloqueador de comandos
+commandblocker:
+  enabled: true # Define se o bloqueador de comandos está ativado ou desativado. true = ativado, false = desativado (Padrão: true)
+  message: "§8[§bM4Shield§8] §cEste comando está bloqueado" # Essa é a mensagem exibida quando um jogador tenta usar um comando bloqueado (Padrão: §8[§bM4Shield§8] §cEste comando está bloqueado.)
+  blockedCommands: # Lista de comandos bloqueados, sem / | por padrão vários comandos meio/bem "perigosos" estão bloqueados
+    - op
+    - deop
+    - pocketmine:op
+    - pocketmine:deop
+    - glowstone:op
+    - glowstone:deop
+    - sudo
+    - :sudo
+    - rca
+    - :rca
+    - slapper
+    - npc
+    - setgroup
+    - setgroup:setgroup
+    - addgroup
+    - addgroup:addgroup
+    - defgroup
+    - defgroup:defgroup
+    - usrinfo
+    - usrinfo:usrinfo
+    - rmgroup
+    - rmgroup:rmgroup
+    - ppinfo
+    - ppinfo:ppinfo
+    - ppreload
+    - ppreload:ppreload
+    - ppsudo
+    - ppsudo:ppsudo
+    - setformat
+    - setnametag
+    - setprefix
+    - setsuffix
+    - groups
+    - groups:groups
+    - fperms
+    - fperms:fperms
+    - listgperms
+    - listgperms:listgperms
+    - listuperms
+    - listuperms:listuperms
+    - setgperm
+    - setgperm:setgperm
+    - setuperm
+    - setuperm:setuperm
+    - unsetgperm
+    - unsetgperm:unsetgperm
+    - unsetuperm
+    - unsetuperm:unsetuperm
+    - dumpmemory
+    - pocketmine:dumpmemory
+    - glowstone:dumpmemory
+    - reload
+    - pocketmine:reload
+    - glowstone:reload
+    - stop
+    - pocketmine:stop
+    - glowstone:stop
+    - version
+    - pocketmine:version
+    - glowstone:version
+    - ver
+    - pocketmine:ver
+    - glowstone:ver
+    - about
+    - pocketmine:about
+    - glowstone:about
+    - cave
+    - pocketmine:cave
+    - glowstone:cave
+    - /wand
+    - /cyl
+    - /hcyl
+    - /sphere
+    - /set
+    - /replace
+    - /copy
+    - /paste
+    - /schem
+    - makeserver
+    - pocketmine:makeserver
+    - glowstone:makeserver
+    - makeplugin
+    - pocketmine:makeplugin
+    - glowstone:makeplugin
+    - ms
+    - pocketmine:ms
+    - glowstone:ms
+    - mp
+    - pocketmine:mp
+    - glowstone:mp
+  allowedPlayers: # Lista de jogadores permitidos a usar comandos bloqueados
+    - player1 
+    - player2 # se você quiser, você pode apagar essa linha caso queira que apenas um jogador possa usar comandos bloqueados, ou, se quiser você pode apenas repetir as - e adicionar mais jogadores
+    
+# Bloqueador de palavras no chat (e em comandos caso a opção blockInCommands esteja ativa)
+chatblocker:
+  enabled: false # Define se o bloqueador de palavras no chat está ativado ou desativado. true = ativado, false = desativado (Padrão: false)
+  blockedWords: # Lista de palavras bloqueadas no chat (por padrão existem palavras que podem ser ofensivas, algumas são em inglês e espanhol) lembre-se: o plugin não analisa o contexto da mensagem, apenas identifica se tem uma tal palavra nela e substitui pelo caractere em replacementChar
+    - palavra # O motivo de não ter uma lista aqui é que eu tentei fazer uma, mas eu acho que ficou com palavras muito ofensivas, recomendo que crie sua própria lista aqui
+  blockInCommands: false # Aqui é decidido se as palavras colocadas em blockedWords também serão bloqueadas em comandos. true = ativado, false = desativado (Padrão: false)
+  replacementChar: "*" # O caractere que substituirá as palavras proibidas (Padrão: *)
+
+# Bloqueador de vazamento de ips no chat (e em comandos caso a opção blockInCommands esteja ativa)
+# Essa opção não bloqueia ip de servidores, eu recomendo usar a opção de chatblocker para isso
+ipleakblock:
+  enabled: true # Define se o bloqueador de ips no chat está ativado ou desativado. true = ativado, false = desativado (Padrão: true)
+  blockInCommands: true # Aqui é decidido se os ips também serão bloqueadas em comandos. true = ativado, false = desativado (Padrão: true)
+  replacementChar: "*" # O caractere que substituirá o ip (Padrão: *)
