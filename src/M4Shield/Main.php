@@ -10,7 +10,7 @@ class Main extends PluginBase {
 
   /** @var Config */
   private $config;
-  const M4SHIELD_VERSION = 2;
+  const M4SHIELD_VERSION = 3;
 
   public function onEnable() {
     $this->getLogger()->info("|=> M4Shield <=|");
