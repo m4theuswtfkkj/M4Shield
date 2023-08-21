@@ -26,12 +26,8 @@ class EventListener implements Listener {
     return $this->main->getServer();
   }
 
-  private function removeBlockedItem(Player $p, Item $item) {
+  private function removeBlockedItem(Player $p) {
     $p->getInventory()->setItemInHand(Item::get(0, 0));
-    $itemToRemove = Item::get(327, 0, 1);
-    if ($p->getInventory()->contains($itemToRemove)) {
-      $p->getInventory()->removeItem($itemToRemove);
-    }
   }
 
   private function processBlockedWords($message) {
@@ -107,7 +103,7 @@ class EventListener implements Listener {
     $message = $this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado");
 
     if ($antigriefEnabled && !$antigriefItemInHand && in_array($id, $blockedItems)) {
-      $this->removeBlockedItem($p, $item);
+      $this->removeBlockedItem($p);
       $p->sendMessage($message);
       $e->setCancelled(true);
     }
