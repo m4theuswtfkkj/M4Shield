@@ -7,7 +7,7 @@
 # Arquivo de configuração do M4Shield
 # Configurações do plugin (em hipótese alguma mexa na config version)
 plugin:
-  version: 2
+  version: 3
 
 # Configurações do anti-bot
 antibot:
