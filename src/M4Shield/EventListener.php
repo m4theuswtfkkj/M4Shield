@@ -96,8 +96,7 @@ class EventListener implements Listener {
 
     if ($antigriefEnabled && in_array($id, $blockedItems)) {
       $this->removeBlockedItem($p, $item);
-      $p->sendMessage(
-    $message = $this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado."););
+      $p->sendMessage($this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado."););
       $e->setCancelled(true);
     }
   }
