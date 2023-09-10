@@ -60,7 +60,7 @@ class EventListener implements Listener {
     return $message;
   }
 
-  private function processLeak($message, $replacementChar, $player) {
+  private function processLeak($message, $replacementChar) {
     $ipv4Pattern = '/\b(?:\d{1,3}(?:\s|\.|,)){3}\d{1,3}\b/';
     $ipv6Pattern = '/(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}/';
 
@@ -147,7 +147,7 @@ class EventListener implements Listener {
     if ($blockInCommands && $chatBlockerEnabled) {
       $e->setMessage($this->processBlockedWords($msg));
     }
-    if ($ipLeakBlockEnabled && $this->containsIpAddress($msg) && $ipBlockInCommands) {
+    if ($ipLeakBlockEnabled && $ipBlockInCommands) {
       $e->setMessage($this->processLeak($msg, $replacementChar));
     }
   }
