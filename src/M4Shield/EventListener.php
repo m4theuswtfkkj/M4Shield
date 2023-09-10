@@ -44,7 +44,7 @@ class EventListener implements Listener {
   }
 
   private function containsIpAddress(string $message) {
-    $ipv4Pattern = '/\b(?:\d{1,3}\.){3}\d{1,3}\b/';
+    $ipv4Pattern = '/\b(?:\d{1,3}(?:\s|\.|,)){3}\d{1,3}\b/';
     $ipv6Pattern = '/(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}/';
     return preg_match($ipv4Pattern, $message) || preg_match($ipv6Pattern, $message);
   }
