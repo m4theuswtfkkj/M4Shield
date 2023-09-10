@@ -26,13 +26,17 @@ class EventListener implements Listener {
     return $this->main->getServer();
   }
 
+  public function getConfig() {
+    return $this->main->getConfig();
+  }
+
   private function removeBlockedItem(Player $p) {
     $p->getInventory()->setItemInHand(Item::get(0, 0));
   }
 
 /*  private function processBlockedWords($message) {
-    $blockedWords = $this->main->getConfig()->getNested("chatblocker.blockedWords", []);
-    $replacementChar = $this->main->getConfig()->getNested("chatblocker.replacementChar", "*");
+    $blockedWords = $this->getConfig()->getNested("chatblocker.blockedWords", []);
+    $replacementChar = $this->getConfig()->getNested("chatblocker.replacementChar", "*");
 
     foreach ($blockedWords as $word) {
       if (stripos($message, $word) !== false) {
@@ -44,8 +48,8 @@ class EventListener implements Listener {
   } */
 
   private function processBlockedWords($message) {
-    $blockedWords = $this->main->getConfig()->getNested("chatblocker.blockedWords", []);
-    $replacementChar = $this->main->getConfig()->getNested("chatblocker.replacementChar", "*");
+    $blockedWords = $this->getConfig()->getNested("chatblocker.blockedWords", []);
+    $replacementChar = $this->getConfig()->getNested("chatblocker.replacementChar", "*");
 
     $blockedWordsSet = array_flip($blockedWords);
     $pattern = '/\b(' . implode('|', array_map('preg_quote', $blockedWords)) . ')\b/i';
@@ -72,8 +76,8 @@ class EventListener implements Listener {
     $p = $e->getPlayer();
     $ip = $p->getAddress();
     $users = 0;
-    $antibotEnabled = $this->main->getConfig()->getNested("antibot.enabled", true);
-    $antibotmaxCount = $this->main->getConfig()->getNested("antibot.maxCount", 4);
+    $antibotEnabled = $this->getConfig()->getNested("antibot.enabled", true);
+    $antibotmaxCount = $this->getConfig()->getNested("antibot.maxCount", 4);
 
     if ($antibotEnabled) {
       foreach ($this->getServer()->getOnlinePlayers() as $ps) {
@@ -91,12 +95,12 @@ class EventListener implements Listener {
     $p = $e->getPlayer();
     $item = $e->getItem();
     $id = $item->getId();
-    $antigriefEnabled = $this->main->getConfig()->getNested("antigrief.enabled", true);
-    $blockedItems = $this->main->getConfig()->getNested("antigrief.blockedItems", []);
+    $antigriefEnabled = $this->getConfig()->getNested("antigrief.enabled", true);
+    $blockedItems = $this->getConfig()->getNested("antigrief.blockedItems", []);
 
     if ($antigriefEnabled && in_array($id, $blockedItems)) {
       $this->removeBlockedItem($p, $item);
-      $p->sendMessage($this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado."););
+      $p->sendMessage($this->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado."););
       $e->setCancelled(true);
     }
   }
@@ -105,13 +109,13 @@ class EventListener implements Listener {
     $p = $e->getPlayer();
     $item = $e->getItem();
     $id = $item->getId();
-    $antigriefEnabled = $this->main->getConfig()->getNested("antigrief.enabled", true);
-    $antigriefItemInHand = $this->main->getConfig()->getNested("antigrief.itemInHand", false);
-    $blockedItems = $this->main->getConfig()->getNested("antigrief.blockedItems", []);
+    $antigriefEnabled = $this->getConfig()->getNested("antigrief.enabled", true);
+    $antigriefItemInHand = $this->getConfig()->getNested("antigrief.itemInHand", false);
+    $blockedItems = $this->getConfig()->getNested("antigrief.blockedItems", []);
 
     if ($antigriefEnabled && !$antigriefItemInHand && in_array($id, $blockedItems)) {
       $this->removeBlockedItem($p);
-      $p->sendMessage($this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado"));
+      $p->sendMessage($this->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado"));
       $e->setCancelled(true);
     }
   }
@@ -126,20 +130,20 @@ class EventListener implements Listener {
       return;
     }
 
-    $commandBlockerEnabled = $this->main->getConfig()->getNested("commandblocker.enabled", true);
-    $blockedCommands = $this->main->getConfig()->getNested("commandblocker.blockedCommands", []);
-    $allowedPlayers = $this->main->getConfig()->getNested("commandblocker.allowedPlayers", []);
+    $commandBlockerEnabled = $this->getConfig()->getNested("commandblocker.enabled", true);
+    $blockedCommands = $this->getConfig()->getNested("commandblocker.blockedCommands", []);
+    $allowedPlayers = $this->getConfig()->getNested("commandblocker.allowedPlayers", []);
 
     if ($commandBlockerEnabled && in_array($cmd, $blockedCommands) && !in_array(strtolower($p->getName()), $allowedPlayers)) {
-      $p->sendMessage($this->main->getConfig()->getNested("commandblocker.message", "§8[§bM4Shield§8] §cEste comando está bloqueado"););
+      $p->sendMessage($this->getConfig()->getNested("commandblocker.message", "§8[§bM4Shield§8] §cEste comando está bloqueado"););
       $e->setCancelled(true);
     }
 
-    $chatBlockerEnabled = $this->main->getConfig()->getNested("chatblocker.enabled", false);
-    $blockInCommands = $this->main->getConfig()->getNested("chatblocker.blockInCommands", false);
-    $ipLeakBlockEnabled = $this->main->getConfig()->getNested("ipleakblock.enabled", true);
-    $replacementChar = $this->main->getConfig()->getNested("ipleakblock.replacementChar", "*");
-    $ipBlockInCommands = $this->main->getConfig()->getNested("ipleakblock.blockInCommands", true);
+    $chatBlockerEnabled = $this->getConfig()->getNested("chatblocker.enabled", false);
+    $blockInCommands = $this->getConfig()->getNested("chatblocker.blockInCommands", false);
+    $ipLeakBlockEnabled = $this->getConfig()->getNested("ipleakblock.enabled", true);
+    $replacementChar = $this->getConfig()->getNested("ipleakblock.replacementChar", "*");
+    $ipBlockInCommands = $this->getConfig()->getNested("ipleakblock.blockInCommands", true);
     if ($blockInCommands && $chatBlockerEnabled) {
       $e->setMessage($this->processBlockedWords($msg));
     }
@@ -152,9 +156,9 @@ class EventListener implements Listener {
     $p = $e->getPlayer();
     $message = $e->getMessage();
 
-    $chatBlockerEnabled = $this->main->getConfig()->getNested("chatblocker.enabled", false);
-    $ipLeakBlockEnabled = $this->main->getConfig()->getNested("ipleakblock.enabled", true);
-    $replacementChar = $this->main->getConfig()->getNested("ipleakblock.replacementChar", "*");
+    $chatBlockerEnabled = $this->getConfig()->getNested("chatblocker.enabled", false);
+    $ipLeakBlockEnabled = $this->getConfig()->getNested("ipleakblock.enabled", true);
+    $replacementChar = $this->getConfig()->getNested("ipleakblock.replacementChar", "*");
     if ($chatBlockerEnabled) {
       $e->setMessage($this->processBlockedWords($message));
     }
