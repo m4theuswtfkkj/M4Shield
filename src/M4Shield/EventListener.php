@@ -56,18 +56,14 @@ class EventListener implements Listener {
     return $message;
   }
 
-  private function containsIpAddress(string $message) {
-    $ipv4Pattern = '/\b(?:\d{1,3}(?:\s|\.|,)){3}\d{1,3}\b/';
-    $ipv6Pattern = '/(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}/';
-    return preg_match($ipv4Pattern, $message) || preg_match($ipv6Pattern, $message);
-  }
-
-  private function blockIpLeak(string $message, string $replacementChar, Player $player) {
+  private function processLeak($message, $replacementChar, $player) {
     $ipv4Pattern = '/\b(?:\d{1,3}\.){3}\d{1,3}\b/';
     $ipv6Pattern = '/(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}/';
 
-    $message = preg_replace($ipv4Pattern, str_repeat($replacementChar, 7), $message);
-    $message = preg_replace($ipv6Pattern, str_repeat($replacementChar, 7), $message);
+    if (preg_match($ipv4Pattern, $message) || preg_match($ipv6Pattern, $message)) {
+        $message = preg_replace($ipv4Pattern, str_repeat($replacementChar, 7), $message);
+        $message = preg_replace($ipv6Pattern, str_repeat($replacementChar, 7), $message);
+    }
 
     return $message;
   }
@@ -163,11 +159,10 @@ class EventListener implements Listener {
     $ipLeakBlockEnabled = $this->main->getConfig()->getNested("ipleakblock.enabled", true);
     $replacementChar = $this->main->getConfig()->getNested("ipleakblock.replacementChar", "*");
     if ($chatBlockerEnabled) {
-      $message = $this->processBlockedWords($message);
-      $e->setMessage($message);
+      $e->setMessage($this->processBlockedWords($message));
     }
-    if ($ipLeakBlockEnabled && $this->containsIpAddress($message)) {
-      $e->setMessage($this->blockIpLeak($message, $replacementChar, $p));
+    if ($ipLeakBlockEnabled) {
+      $e->setMessage($this->processLeak($message, $replacementChar, $p));
     }
   }
 }
