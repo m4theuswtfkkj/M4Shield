@@ -61,7 +61,7 @@ class EventListener implements Listener {
   }
 
   private function processLeak($message, $replacementChar, $player) {
-    $ipv4Pattern = '/\b(?:\d{1,3}\.){3}\d{1,3}\b/';
+    $ipv4Pattern = '/\b(?:\d{1,3}(?:\s|\.|,)){3}\d{1,3}\b/';
     $ipv6Pattern = '/(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}/';
 
     if (preg_match($ipv4Pattern, $message) || preg_match($ipv6Pattern, $message)) {
@@ -100,7 +100,7 @@ class EventListener implements Listener {
 
     if ($antigriefEnabled && in_array($id, $blockedItems)) {
       $this->removeBlockedItem($p, $item);
-      $p->sendMessage($this->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado."););
+      $p->sendMessage($this->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado."));
       $e->setCancelled(true);
     }
   }
@@ -135,7 +135,7 @@ class EventListener implements Listener {
     $allowedPlayers = $this->getConfig()->getNested("commandblocker.allowedPlayers", []);
 
     if ($commandBlockerEnabled && in_array($cmd, $blockedCommands) && !in_array(strtolower($p->getName()), $allowedPlayers)) {
-      $p->sendMessage($this->getConfig()->getNested("commandblocker.message", "§8[§bM4Shield§8] §cEste comando está bloqueado"););
+      $p->sendMessage($this->getConfig()->getNested("commandblocker.message", "§8[§bM4Shield§8] §cEste comando está bloqueado"));
       $e->setCancelled(true);
     }
 
@@ -148,7 +148,7 @@ class EventListener implements Listener {
       $e->setMessage($this->processBlockedWords($msg));
     }
     if ($ipLeakBlockEnabled && $this->containsIpAddress($msg) && $ipBlockInCommands) {
-      $e->setMessage($this->processLeak($msg, $replacementChar, $p));
+      $e->setMessage($this->processLeak($msg, $replacementChar));
     }
   }
 
@@ -163,7 +163,7 @@ class EventListener implements Listener {
       $e->setMessage($this->processBlockedWords($message));
     }
     if ($ipLeakBlockEnabled) {
-      $e->setMessage($this->processLeak($message, $replacementChar, $p));
+      $e->setMessage($this->processLeak($message, $replacementChar));
     }
   }
 }
