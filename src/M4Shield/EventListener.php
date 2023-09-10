@@ -93,11 +93,11 @@ class EventListener implements Listener {
     $id = $item->getId();
     $antigriefEnabled = $this->main->getConfig()->getNested("antigrief.enabled", true);
     $blockedItems = $this->main->getConfig()->getNested("antigrief.blockedItems", []);
-    $message = $this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado.");
 
     if ($antigriefEnabled && in_array($id, $blockedItems)) {
       $this->removeBlockedItem($p, $item);
-      $p->sendMessage($message);
+      $p->sendMessage(
+    $message = $this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado."););
       $e->setCancelled(true);
     }
   }
@@ -109,11 +109,10 @@ class EventListener implements Listener {
     $antigriefEnabled = $this->main->getConfig()->getNested("antigrief.enabled", true);
     $antigriefItemInHand = $this->main->getConfig()->getNested("antigrief.itemInHand", false);
     $blockedItems = $this->main->getConfig()->getNested("antigrief.blockedItems", []);
-    $message = $this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado");
 
     if ($antigriefEnabled && !$antigriefItemInHand && in_array($id, $blockedItems)) {
       $this->removeBlockedItem($p);
-      $p->sendMessage($message);
+      $p->sendMessage($this->main->getConfig()->getNested("antigrief.message", "§8[§bM4Shield§8] §cEste item está bloqueado"));
       $e->setCancelled(true);
     }
   }
@@ -133,8 +132,7 @@ class EventListener implements Listener {
     $allowedPlayers = $this->main->getConfig()->getNested("commandblocker.allowedPlayers", []);
 
     if ($commandBlockerEnabled && in_array($cmd, $blockedCommands) && !in_array(strtolower($p->getName()), $allowedPlayers)) {
-      $message = $this->main->getConfig()->getNested("commandblocker.message", "§8[§bM4Shield§8] §cEste comando está bloqueado");
-      $p->sendMessage($message);
+      $p->sendMessage($this->main->getConfig()->getNested("commandblocker.message", "§8[§bM4Shield§8] §cEste comando está bloqueado"););
       $e->setCancelled(true);
     }
 
@@ -147,7 +145,7 @@ class EventListener implements Listener {
       $e->setMessage($this->processBlockedWords($msg));
     }
     if ($ipLeakBlockEnabled && $this->containsIpAddress($msg) && $ipBlockInCommands) {
-      $e->setMessage($this->blockIpLeak($msg, $replacementChar, $p));
+      $e->setMessage($this->processLeak($msg, $replacementChar, $p));
     }
   }
 
