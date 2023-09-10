@@ -30,7 +30,7 @@ class EventListener implements Listener {
     $p->getInventory()->setItemInHand(Item::get(0, 0));
   }
 
-  private function processBlockedWords($message) {
+/*  private function processBlockedWords($message) {
     $blockedWords = $this->main->getConfig()->getNested("chatblocker.blockedWords", []);
     $replacementChar = $this->main->getConfig()->getNested("chatblocker.replacementChar", "*");
 
@@ -39,6 +39,19 @@ class EventListener implements Listener {
         $message = str_ireplace($word, str_repeat($replacementChar, mb_strlen($word)), $message);
       }
     }
+
+    return $message;
+  } */
+
+  private function processBlockedWords($message) {
+    $blockedWords = $this->main->getConfig()->getNested("chatblocker.blockedWords", []);
+    $replacementChar = $this->main->getConfig()->getNested("chatblocker.replacementChar", "*");
+
+    $blockedWordsSet = array_flip($blockedWords);
+    $pattern = '/\b(' . implode('|', array_map('preg_quote', $blockedWords)) . ')\b/i';
+    $message = preg_replace_callback($pattern, function($matches) use ($replacementChar) {
+        return str_repeat($replacementChar, mb_strlen($matches[0]));
+    }, $message);
 
     return $message;
   }
