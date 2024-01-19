@@ -6,4 +6,4 @@ V3 em produção
 
 ## 🌌 - M4theuskkj (Criador)
 - [YouTube](https://youtube.com/@m4theus.wtfkkj)
-- Discord: @m4theuskkj
+- Discord: @m4theus.wtfkkj
