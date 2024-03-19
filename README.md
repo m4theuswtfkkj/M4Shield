@@ -7,4 +7,4 @@ Discord: [Clique aqui](https://discord.com/invite/RdnZxsnjXW)
 - Discord: @m4theus.wtfkkj
 
 ## Versão atual
-- 3.1
+- 3.2
