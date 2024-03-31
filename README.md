@@ -5,6 +5,7 @@ Discord: [Clique aqui](https://discord.com/invite/RdnZxsnjXW)
 ## 🌌 - M4theuskkj (Criador)
 - [YouTube](https://youtube.com/@m4theus.wtfkkj)
 - Discord: @m4theus.wtfkkj
+- Telegram: [Clica aqui :)](https://t.me/m4theuswtfkkj)
 
 ## 🔌 - Versão atual
 - 3.2
