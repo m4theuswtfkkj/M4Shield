@@ -1,0 +1,6 @@
+name: M4Shield
+author: M4theuskkj
+main: M4Shield\Main
+api: 2.0.0
+version: 3.2
+description: "Um plugin pra proteger servidores de pocketmine 2.0.0 contra grief, bots e outras coisas"
