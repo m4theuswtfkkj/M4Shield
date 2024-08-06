@@ -7,7 +7,7 @@
 - Discord: @m4theus.wtfkkj
 
 ## 🔌 - Versão atual
-- 3.2
+- 3.3 (em desenvolvimento)
 
 ## 🔦 - Outras versões
 - *PM 5* (feito por **frpitu**, ***não oficial***): [Repositório no Github](https://github.com/frpitu/M4shieldPMMP5)
